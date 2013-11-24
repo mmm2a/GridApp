@@ -4,11 +4,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.morgan.grid.server.common.AllCommonTests;
+import com.morgan.grid.server.AllServerTests;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-  AllCommonTests.class
+  AllServerTests.class
 })
 public class AllTests {
 }
