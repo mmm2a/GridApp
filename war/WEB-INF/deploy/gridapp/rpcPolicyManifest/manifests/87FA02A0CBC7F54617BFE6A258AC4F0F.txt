@@ -1,0 +1,2 @@
+serviceClass: com.morgan.grid.client.grid.GridService
+path: E1B5A56E769BBF7C6159D7786CB03745.gwt.rpc

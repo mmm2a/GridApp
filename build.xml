@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="GridApp" default="build" basedir=".">
+  <!-- Arguments to gwtc and devmode targets -->
+  <property name="gwt.args" value="" />
+
+  <!-- Configure path to GWT SDK -->
+  <property name="gwt.sdk" location="/Users/morgan/Code/GWT/gwt-2.5.1" />
+
+  <property file="${basedir}/build.properties"/>
+
+  <path id="guice.classpath">
+    <fileset dir="${guice.dir}" includes="*.jar"/>
+  </path>
+
+  <path id="gin.classpath">
+    <fileset dir="${gin.dir}" includes="*.jar"/>
+  </path>
+
+  <path id="guava.classpath">
+    <fileset dir="${guava.dir}" includes="guava-15.0.jar"/>
+  </path>
+
+  <path id="mockito.classpath">
+    <fileset dir="${mockito.dir}" includes="*.jar"/>
+  </path>
+
+  <path id="junit.classpath">
+    <fileset dir="${junit.dir}" includes="*.jar"/>
+  </path>
+
+  <path id="project.class.path">
+    <pathelement location="war/WEB-INF/classes"/>
+    <pathelement location="${gwt.sdk}/gwt-user.jar"/>
+    
+    <path refid="guice.classpath"/>
+    <path refid="gin.classpath"/>
+    <path refid="guava.classpath"/>
+    <path refid="mockito.classpath"/>
+    <path refid="junit.classpath"/>
+
+    <fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
+    <!-- Add any additional non-server libs (such as JUnit) -->
+    <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
+  </path>
+
+  <target name="libs" description="Copy libs to WEB-INF/lib">
+    <mkdir dir="war/WEB-INF/lib" />
+    <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
+    <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar" />
+    <copy todir="war/WEB-INF/lib" file="${guice.dir}/guice-servlet-3.0.jar" />
+    <copy todir="war/WEB-INF/lib" file="${guava.dir}/guava-gwt-15.0.jar" />
+    <!-- Add any additional server libs that need to be copied -->
+  </target>
+
+  <target name="javac" depends="libs" description="Compile java source to bytecode">
+    <mkdir dir="war/WEB-INF/classes"/>
+    <javac srcdir="src" includes="**" encoding="utf-8"
+        destdir="war/WEB-INF/classes"
+        source="1.6" target="1.6" nowarn="true"
+        debug="true" debuglevel="lines,vars,source">
+      <classpath refid="project.class.path"/>
+    </javac>
+    <copy todir="war/WEB-INF/classes">
+      <fileset dir="src" excludes="**/*.java"/>
+    </copy>
+  </target>
+
+  <target name="test.compile" description="JUnit test compiler">
+    <mkdir dir="test-bin"/>
+    <javac srcdir="test" includes="**" encoding="utf-8"
+        destdir="test-bin"
+        source="1.6" target="1.6" nowarn="true"
+        debug="true" debuglevel="lines,vars,source">
+      <classpath refid="project.class.path"/>
+    </javac>
+  </target>
+
+  <target name="test" depends="test.compile" description="JUnit test runner">
+    <junit printsummary="on">
+      <classpath>
+        <path refid="project.class.path"/>
+        <pathelement location="test-bin"/>
+      </classpath>
+
+      <test name="com.morgan.grid.AllTests"/>
+    </junit>
+  </target>
+
+  <target name="auth-app.gwt.compile" depends="javac"
+      description="GWT compile to JavaScript (production mode)">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+        <pathelement location="/Users/morgan/Code/GWT/gwt-2.5.1/validation-api-1.0.0.GA.jar" />
+        <pathelement location="/Users/morgan/Code/GWT/gwt-2.5.1/validation-api-1.0.0.GA-sources.jar" />
+      </classpath>
+      <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+      <jvmarg value="-Xmx256M"/>
+      <arg line="-war"/>
+      <arg value="war"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="${gwt.args}"/>
+      <arg value="com.morgan.grid.AuthApp"/>
+    </java>
+  </target>
+
+  <target name="grid-app.gwt.compile" depends="javac"
+      description="GWT compile to JavaScript (production mode)">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+        <pathelement location="/Users/morgan/Code/GWT/gwt-2.5.1/validation-api-1.0.0.GA.jar" />
+        <pathelement location="/Users/morgan/Code/GWT/gwt-2.5.1/validation-api-1.0.0.GA-sources.jar" />
+      </classpath>
+      <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+      <jvmarg value="-Xmx256M"/>
+      <arg line="-war"/>
+      <arg value="war"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="${gwt.args}"/>
+      <arg value="com.morgan.grid.GridApp"/>
+    </java>
+  </target>
+
+  <target name="gwtc" depends="auth-app.gwt.compile, grid-app.gwt.compile"
+      description="GWT compile to JavaScript (production mode)"/>
+
+  <target name="auth-app.gwt.devmode" depends="javac"
+      description="Run development mode for Auth App">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+        <pathelement location="/Users/morgan/Code/GWT/gwt-2.5.1/validation-api-1.0.0.GA.jar" />
+        <pathelement location="/Users/morgan/Code/GWT/gwt-2.5.1/validation-api-1.0.0.GA-sources.jar" />
+      </classpath>
+      <jvmarg value="-Xmx256M"/>
+      <arg value="-startupUrl"/>
+      <arg value="AuthApp.html"/>
+      <arg line="-war"/>
+      <arg value="war"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="${gwt.args}"/>
+      <arg value="com.morgan.grid.AuthApp"/>
+    </java>
+  </target>
+
+  <target name="grid-app.gwt.devmode" depends="javac"
+      description="Run development mode for Grid App">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+        <pathelement location="/Users/morgan/Code/GWT/gwt-2.5.1/validation-api-1.0.0.GA.jar" />
+        <pathelement location="/Users/morgan/Code/GWT/gwt-2.5.1/validation-api-1.0.0.GA-sources.jar" />
+      </classpath>
+      <jvmarg value="-Xmx256M"/>
+      <arg value="-startupUrl"/>
+      <arg value="GridApp.html"/>
+      <arg line="-war"/>
+      <arg value="war"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="${gwt.args}"/>
+      <arg value="com.morgan.grid.GridApp"/>
+    </java>
+  </target>
+
+  <target name="devmode" depends="auth-app.gwt.devmode, grid-app.gwt.devmode"
+      description="Run development mode"/>
+
+  <target name="hosted" depends="devmode" description="Run development mode (NOTE: the 'hosted' target is deprecated)" />
+
+  <target name="build" depends="gwtc" description="Build this project" />
+
+  <target name="war" depends="build" description="Create a war file">
+    <zip destfile="GridApp.war" basedir="war"/>
+  </target>
+
+  <target name="clean" description="Cleans this project">
+    <delete dir="war/WEB-INF/classes" failonerror="false" />
+    <delete dir="war/WEB-INF/lib" failonerror="false" />
+    <delete dir="war/gridapp" failonerror="false" />
+    <delete dir="war/authapp" failonerror="false" />
+
+    <delete dir="test-bin" failonerror="false"/>
+  </target>
+
+</project>

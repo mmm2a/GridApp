@@ -1,0 +1,2 @@
+serviceClass: com.morgan.grid.client.auth.AuthService
+path: B36180C32473E324D2EA6D7E2DD0B505.gwt.rpc

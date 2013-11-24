@@ -1,0 +1,3 @@
+# Module gridapp
+# RPC service class, partial path of RPC policy file
+com.morgan.grid.client.grid.GridService, E1B5A56E769BBF7C6159D7786CB03745.gwt.rpc

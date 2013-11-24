@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="lib" path="/Users/morgan/Code/GWT/gwt-2.5.1/gwt-user.jar"/>
+	<classpathentry kind="lib" path="/Users/morgan/Code/GWT/gwt-2.5.1/gwt-dev.jar"/>
+	<classpathentry kind="lib" path="/Users/morgan/Code/GWT/gwt-2.5.1/validation-api-1.0.0.GA.jar"/>
+	<classpathentry kind="lib" path="/Users/morgan/Code/GWT/gwt-2.5.1/validation-api-1.0.0.GA-sources.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/aopalliance.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/guice-3.0.jar" sourcepath="ext/Guice/guice-3.0-src.zip"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/guice-assistedinject-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/guice-grapher-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/guice-jmx-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/guice-jndi-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/guice-multibindings-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/guice-persist-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/guice-servlet-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/guice-spring-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/guice-struts2-plugin-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/guice-throwingproviders-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Guice/guice-3.0/javax.inject.jar"/>
+	<classpathentry kind="lib" path="ext/Gin/aopalliance.jar"/>
+	<classpathentry kind="lib" path="ext/Gin/gin-2.1.1.jar"/>
+	<classpathentry kind="lib" path="ext/Gin/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Gin/guice-assistedinject-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/Gin/javax.inject.jar"/>
+	<classpathentry kind="lib" path="ext/Guava/guava-15.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://docs.guava-libraries.googlecode.com/git-history/release/javadoc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="ext/Mockito/mockito-1.9.5/mockito-all-1.9.5.jar" sourcepath="ext/Mockito/mockito-1.9.5/sources/mockito-all-1.9.5-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/Users/morgan/GitProjects/GridApp/ext/Mockito/mockito-1.9.5/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>

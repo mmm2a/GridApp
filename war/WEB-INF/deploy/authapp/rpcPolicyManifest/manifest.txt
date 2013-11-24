@@ -1,0 +1,3 @@
+# Module authapp
+# RPC service class, partial path of RPC policy file
+com.morgan.grid.client.auth.AuthService, B36180C32473E324D2EA6D7E2DD0B505.gwt.rpc
