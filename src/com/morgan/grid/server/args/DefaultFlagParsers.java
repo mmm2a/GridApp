@@ -1,9 +1,15 @@
 package com.morgan.grid.server.args;
 
+import javax.annotation.Nullable;
+
+import com.google.common.base.Function;
+import com.google.common.base.Functions;
+import com.google.common.base.Preconditions;
 import com.google.common.primitives.Primitives;
+import com.morgan.grid.shared.convert.DefaultConverter;
 
 /**
- * Factory class for getting {@link FlagParser} instances for the default types.
+ * A factory for default flag parsers (mostly the primitive types).
  *
  * @author mark@mark-morgan.net (Mark Morgan)
  */
@@ -14,153 +20,191 @@ public final class DefaultFlagParsers {
   }
 
   /**
-   * Gets the {@link FlagParser} for flags which are shorts.
+   * Gets a {@link FlagParser} suitable for handling {@link Byte} and {@link byte} flag types.
    */
-  public static FlagParser<Short> shortFlagParser() {
-    return new AbstractFlagParser<Short>() {
-      @Override public Short fromString(String string) {
-        return Short.parseShort(string);
+  public static FlagParser byteFlagParser() {
+    return new DefaultFlagParser(new DelegatingNullFunction<Byte>() {
+      @Override protected Byte applyNonNull(String input) {
+        return Byte.parseByte(input);
       }
-    };
+    });
   }
 
   /**
-   * Gets the {@link FlagParser} for flags which are ints.
+   * Gets a {@link FlagParser} suitable for handling {@link Character} and {@link char} flag types.
    */
-  public static FlagParser<Integer> intFlagParser() {
-    return new AbstractFlagParser<Integer>() {
-      @Override public Integer fromString(String string) {
-        return Integer.parseInt(string);
+  public static FlagParser charFlagParser() {
+    return new DefaultFlagParser(new DelegatingNullFunction<Character>() {
+      @Override protected Character applyNonNull(String input) {
+        Preconditions.checkArgument(input.length() == 1);
+        return input.charAt(0);
       }
-    };
+    });
   }
 
   /**
-   * Gets the {@link FlagParser} for flags which are longs.
+   * Gets a {@link FlagParser} suitable for handling {@link Short} and {@link short} flag types.
    */
-  public static FlagParser<Long> longFlagParser() {
-    return new AbstractFlagParser<Long>() {
-      @Override public Long fromString(String string) {
-        return Long.parseLong(string);
+  public static FlagParser shortFlagParser() {
+    return new DefaultFlagParser(new DelegatingNullFunction<Short>() {
+      @Override protected Short applyNonNull(String input) {
+        return Short.parseShort(input);
       }
-    };
+    });
   }
 
   /**
-   * Gets the {@link FlagParser} for flags which are floats.
+   * Gets a {@link FlagParser} suitable for handling {@link Integer} and {@link int} flag types.
    */
-  public static FlagParser<Float> floatFlagParser() {
-    return new AbstractFlagParser<Float>() {
-      @Override public Float fromString(String string) {
-        return Float.parseFloat(string);
+  public static FlagParser intFlagParser() {
+    return new DefaultFlagParser(new DelegatingNullFunction<Integer>() {
+      @Override protected Integer applyNonNull(String input) {
+        return Integer.parseInt(input);
       }
-    };
+    });
   }
 
   /**
-   * Gets the {@link FlagParser} for flags which are doubles.
+   * Gets a {@link FlagParser} suitable for handling {@link Long} and {@link long} flag types.
    */
-  public static FlagParser<Double> doubleFlagParser() {
-    return new AbstractFlagParser<Double>() {
-      @Override public Double fromString(String string) {
-        return Double.parseDouble(string);
+  public static FlagParser longFlagParser() {
+    return new DefaultFlagParser(new DelegatingNullFunction<Long>() {
+      @Override protected Long applyNonNull(String input) {
+        return Long.parseLong(input);
       }
-    };
+    });
   }
 
   /**
-   * Gets the {@link FlagParser} for flags which are booleans.
+   * Gets a {@link FlagParser} suitable for handling {@link Float} and {@link float} flag types.
    */
-  public static FlagParser<Boolean> booleanFlagParser() {
-    return new AbstractFlagParser<Boolean>() {
-      @Override public Boolean fromString(String string) {
-        return Boolean.parseBoolean(string);
+  public static FlagParser floatFlagParser() {
+    return new DefaultFlagParser(new DelegatingNullFunction<Float>() {
+      @Override protected Float applyNonNull(String input) {
+        return Float.parseFloat(input);
       }
-    };
+    });
   }
 
   /**
-   * Gets the {@link FlagParser} for flags which are strings.
+   * Gets a {@link FlagParser} suitable for handling {@link Double} and {@link double} flag types.
    */
-  public static FlagParser<String> stringFlagParser() {
-    return new AbstractFlagParser<String>() {
-      @Override public String fromString(String string) {
-        return string;
+  public static FlagParser doubleFlagParser() {
+    return new DefaultFlagParser(new DelegatingNullFunction<Double>() {
+      @Override protected Double applyNonNull(String input) {
+        return Double.parseDouble(input);
       }
-    };
+    });
   }
 
   /**
-   * Gets the {@link FlagParser} for flags which are enums.
+   * Gets a {@link FlagParser} suitable for handling {@link Boolean} and {@link boolean} flag types.
    */
-  public static <T extends Enum<T>> FlagParser<T> enumFlagParser(final Class<T> enumClass) {
-    return new FlagParser<T>() {
-      @Override public String toString(T value) {
-        return value.name();
+  public static FlagParser booleanFlagParser() {
+    return new DefaultFlagParser(new DelegatingNullFunction<Boolean>() {
+      @Override protected Boolean applyNonNull(String input) {
+        return Boolean.parseBoolean(input);
       }
-
-      @Override public T fromString(String string) {
-        return Enum.valueOf(enumClass, string);
-      }
-    };
+    });
   }
 
   /**
-   * Determines whether or not the given flag type has a default flag parser.
+   * Gets a {@link FlagParser} suitable for handling {@link Void} and {@link void} flag types.
    */
-  public static boolean hasDefaultFlagParser(Class<?> flagType) {
-    if (flagType.equals(void.class) || flagType.equals(Void.class)) {
-      return false;
-    }
-
-    return Primitives.allPrimitiveTypes().contains(flagType)
-        || Primitives.allWrapperTypes().contains(flagType)
-        || flagType.isEnum()
-        || flagType.equals(String.class);
+  public static FlagParser voidFlagParser() {
+    return new DefaultFlagParser(new DelegatingNullFunction<Void>() {
+      @Override protected Void applyNonNull(String input) {
+        Preconditions.checkArgument(input.isEmpty());
+        return null;
+      }
+    });
   }
 
   /**
-   * Returns the flag parser that matches a given flag type.  If no such flag parser exists,
-   * this method throws an {@link IllegalStateException}.
+   * Gets a {@link FlagParser} suitable for handling {@link String} flag types.
    */
+  public static FlagParser stringFlagParser() {
+    return new DefaultFlagParser(new DelegatingNullFunction<String>() {
+      @Override protected String applyNonNull(String input) {
+        return input;
+      }
+    });
+  }
+
+  /**
+   * Gets a {@link FlagParser} suitable for handling enum instance flag types.
+   */
+  public static <T extends Enum<T>> FlagParser enumFlagParser(final Class<T> enumType) {
+    return new DefaultFlagParser(new DelegatingNullFunction<T>() {
+      @Override protected T applyNonNull(String input) {
+        return Enum.valueOf(enumType, input);
+      }
+    });
+  }
+
   @SuppressWarnings("unchecked")
-  public static FlagParser<?> getFlagParserFor(Class<?> flagType) {
-    if (Primitives.allPrimitiveTypes().contains(flagType)) {
-      flagType = Primitives.wrap(flagType);
+  public static FlagParser getFlagParserFor(Class<?> valueType) {
+    if (valueType.isEnum()) {
+      return enumFlagParser(valueType.asSubclass(Enum.class));
     }
 
-    if (flagType.isEnum()) {
-      return enumFlagParser(flagType.asSubclass(Enum.class));
-    }
-
-    if (flagType.equals(String.class)) {
+    if (valueType.equals(String.class)) {
       return stringFlagParser();
     }
 
-    if (flagType.equals(Short.class)) {
+    if (valueType.isPrimitive()) {
+      valueType = Primitives.wrap(valueType);
+    }
+
+    if (valueType.equals(Byte.class)) {
+      return byteFlagParser();
+    } else if (valueType.equals(Character.class)) {
+      return charFlagParser();
+    } else if (valueType.equals(Short.class)) {
       return shortFlagParser();
-    }
-
-    if (flagType.equals(Integer.class)) {
+    } else if (valueType.equals(Integer.class)) {
       return intFlagParser();
-    }
-
-    if (flagType.equals(Long.class)) {
+    } else if (valueType.equals(Long.class)) {
       return longFlagParser();
-    }
-
-    if (flagType.equals(Float.class)) {
+    } else if (valueType.equals(Float.class)) {
       return floatFlagParser();
-    }
-
-    if (flagType.equals(Double.class)) {
+    } else if (valueType.equals(Double.class)) {
       return doubleFlagParser();
-    }
-
-    if (flagType.equals(Boolean.class)) {
+    } else if (valueType.equals(Boolean.class)) {
       return booleanFlagParser();
     }
 
-    throw new IllegalStateException("Unable to find default flag parser for type " + flagType);
+    throw new UnsupportedOperationException(String.format(
+        "Can't find default flag parser for type %s", valueType));
+  }
+
+  /**
+   * Abstract implementation of a {@link Function} that automatically returns {@code null} for
+   * {@code null} inputs, and delegates all other values to an abstract method.
+   *
+   * @param <T> the type being created from the input string.
+   */
+  private static abstract class DelegatingNullFunction<T> implements Function<String, T> {
+    protected abstract T applyNonNull(String input);
+
+    @Override @Nullable public T apply(@Nullable String input) {
+      if (input == null) {
+        return null;
+      }
+
+      return applyNonNull(input);
+    }
+  }
+
+  /**
+   * Default implementation of a {@link FlagParser} that uses {@link Object#toString()} to convert
+   * types to their {@link String} representation.
+   */
+  private static class DefaultFlagParser
+      extends DefaultConverter<Object, String> implements FlagParser {
+
+    public DefaultFlagParser(Function<? super String, ? extends Object> backwardConverter) {
+      super(Functions.toStringFunction(), backwardConverter);
+    }
   }
 }

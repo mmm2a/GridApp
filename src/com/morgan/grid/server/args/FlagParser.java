@@ -1,21 +1,12 @@
 package com.morgan.grid.server.args;
 
+import com.morgan.grid.shared.convert.Converter;
+
 /**
- * Interface for a type that can convert flags from their string representations to an object
- * representation and back.
+ * An interface for a type that can parse flags from string representations and print them back
+ * out as string representations.
  *
  * @author mark@mark-morgan.net (Mark Morgan)
- *
- * @param <T> the object type that the flag has.
  */
-public interface FlagParser<T> {
-  /**
-   * Convert a flag from its object representation into a string.
-   */
-  String toString(T value);
-
-  /**
-   * Convert a flag from its string representation into its object value.
-   */
-  T fromString(String string);
+public interface FlagParser extends Converter<Object, String> {
 }
