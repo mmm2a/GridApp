@@ -8,4 +8,8 @@ package com.morgan.grid.server.args;
  * @author mark@mark-morgan.net (Mark Morgan)
  */
 public interface FlagAccessor {
+  /**
+   * A method to determine whether or not a given flag was set.
+   */
+  boolean wasSet(String flagName);
 }

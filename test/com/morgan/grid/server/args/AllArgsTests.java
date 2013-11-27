@@ -5,7 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ ArgsParserTest.class, ArgsTest.class, DefaultFlagParsersTest.class })
+@SuiteClasses({ ArgsParserTest.class, ArgsTest.class, DefaultFlagParsersTest.class,
+    FlagAccessorFactoryTest.class, FlagsModuleTest.class })
 public class AllArgsTests {
 
 }
