@@ -9,6 +9,13 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import com.google.inject.servlet.RequestScoped;
 
+/**
+ * Example data base accessor.
+ *
+ * TODO(morgan): Remove this class once we have real database code working.
+ *
+ * @author mark@mark-morgan.net (Mark Morgan)
+ */
 @RequestScoped
 class DatabaseAccessor {
 

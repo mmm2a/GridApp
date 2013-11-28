@@ -9,6 +9,13 @@ import javax.persistence.NamedQuery;
 
 import com.google.common.base.Objects;
 
+/**
+ * Default entity for testing.
+ *
+ * TODO(morgan): Remove this class once we have real database code working.
+ *
+ * @author mark@mark-morgan.net (Mark Morgan)
+ */
 @NamedQueries({
   @NamedQuery(
       name = "listAllEntries",
