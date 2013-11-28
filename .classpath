@@ -34,6 +34,9 @@
 			<attribute name="javadoc_location" value="file:/Users/morgan/GitProjects/GridApp/ext/Mockito/mockito-1.9.5/javadoc/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="ext/Derby/derby.jar"/>
+	<classpathentry kind="lib" path="ext/EclipseLink/eclipselink.jar"/>
+	<classpathentry kind="lib" path="ext/EclipseLink/javax.persistence_2.0.4.v201112161009.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>

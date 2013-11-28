@@ -28,6 +28,14 @@
     <fileset dir="${junit.dir}" includes="*.jar"/>
   </path>
 
+  <path id="derby.classpath">
+    <fileset dir="${derby.dir}" includes="*.jar"/>
+  </path>
+
+  <path id="eclipselink.classpath">
+    <fileset dir="${eclipselink.dir}" includes="*.jar"/>
+  </path>
+
   <path id="project.class.path">
     <pathelement location="war/WEB-INF/classes"/>
     <pathelement location="${gwt.sdk}/gwt-user.jar"/>
@@ -37,6 +45,8 @@
     <path refid="guava.classpath"/>
     <path refid="mockito.classpath"/>
     <path refid="junit.classpath"/>
+    <path refid="derby.classpath"/>
+    <path refid="eclipselink.classpath"/>
 
     <fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
     <!-- Add any additional non-server libs (such as JUnit) -->
