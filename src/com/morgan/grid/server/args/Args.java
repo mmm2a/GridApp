@@ -1,5 +1,7 @@
 package com.morgan.grid.server.args;
 
+import java.io.IOException;
+
 import javax.annotation.Nullable;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -48,7 +50,8 @@ public final class Args {
    * @throws IllegalStateException if this method is called more than once in an application's
    *     lifetime.
    */
-  synchronized public static Args parse(String []commandLine) throws IllegalStateException {
+  synchronized public static Args parse(String []commandLine)
+      throws IOException, IllegalStateException {
     Preconditions.checkState(instance == null);
 
     ArgsParser parser = new ArgsParser();

@@ -1,6 +1,16 @@
 package com.morgan.grid.server.args;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Properties;
+
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
+import com.google.common.io.Closeables;
+import com.google.common.io.InputSupplier;
+import com.google.common.io.Resources;
 
 /**
  * A class to help with parsing command line arguments into an argument store.
@@ -27,7 +37,9 @@ import com.google.common.base.Preconditions;
  *
  * @author mark@mark-morgan.net (Mark Morgan)
  */
-final class ArgsParser {
+class ArgsParser {
+
+  public static final String ARGS_FILE_FLAG = "--args-file=";
 
   private static final String DOUBLE_DASH = "--";
   private static final String SINGLE_DASH = "-";
@@ -70,8 +82,33 @@ final class ArgsParser {
     }
   }
 
-  ArgsParser addArgument(String argument) {
+  @VisibleForTesting InputSupplier<InputStream> getInputSupplierFor(String fileUrl)
+      throws MalformedURLException {
+    return Resources.newInputStreamSupplier(new URL(fileUrl));
+  }
+
+  private void addArgsFile(String fileUrl) throws IOException {
+    InputStream in = null;
+
+    try {
+      in = getInputSupplierFor(fileUrl).getInput();
+      Properties properties = new Properties();
+      properties.load(in);
+      for (Object key : properties.keySet()) {
+        parseLongFlag(String.format("%s=%s", key, properties.get(key)));
+      }
+    }
+    finally {
+      Closeables.close(in, true);
+    }
+  }
+
+  ArgsParser addArgument(String argument) throws IOException {
     if (!seenDoubleDash) {
+      if (argument.startsWith(ARGS_FILE_FLAG)) {
+        addArgsFile(argument.substring(ARGS_FILE_FLAG.length()));
+        return this;
+      }
       if (argument.equals(DOUBLE_DASH)) {
         seenDoubleDash = true;
         return this;

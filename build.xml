@@ -36,6 +36,10 @@
     <fileset dir="${eclipselink.dir}" includes="*.jar"/>
   </path>
 
+  <path id="joda.classpath">
+    <fileset dir="${joda.dir}" includes="joda-time-2.2.jar"/>
+  </path>
+
   <path id="project.class.path">
     <pathelement location="war/WEB-INF/classes"/>
     <pathelement location="${gwt.sdk}/gwt-user.jar"/>
@@ -47,6 +51,7 @@
     <path refid="junit.classpath"/>
     <path refid="derby.classpath"/>
     <path refid="eclipselink.classpath"/>
+    <path refid="joda.classpath"/>
 
     <fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
     <!-- Add any additional non-server libs (such as JUnit) -->

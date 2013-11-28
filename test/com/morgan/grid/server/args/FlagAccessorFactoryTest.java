@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nullable;
@@ -32,7 +33,7 @@ public class FlagAccessorFactoryTest {
 
   private FlagAccessorForTest accessor;
 
-  @Before public void setUpArguments() {
+  @Before public void setUpArguments() throws IllegalStateException, IOException {
     Args.parse(new String[] {
         "--int-flag=7",
         "--integer-flag=42",

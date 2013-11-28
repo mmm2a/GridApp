@@ -1,9 +1,12 @@
 package com.morgan.grid.server.args;
 
+import java.util.Map;
+
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 
 /**
  * Storage class for storing the result of the parsing of command line arguments.
@@ -58,7 +61,7 @@ final class ArgumentStore {
    */
   static class Builder {
 
-    private final ImmutableMap.Builder<String, String> flagsBuilder = ImmutableMap.builder();
+    private final Map<String, String> flagsBuilder = Maps.newHashMap();
     private final ImmutableList.Builder<String> argumentsBuilder = ImmutableList.builder();
 
     private Builder() {
@@ -76,7 +79,7 @@ final class ArgumentStore {
     }
 
     public ArgumentStore build() {
-      return new ArgumentStore(flagsBuilder.build(), argumentsBuilder.build());
+      return new ArgumentStore(ImmutableMap.copyOf(flagsBuilder), argumentsBuilder.build());
     }
   }
 }

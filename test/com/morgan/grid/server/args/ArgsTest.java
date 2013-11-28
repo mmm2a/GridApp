@@ -3,6 +3,8 @@ package com.morgan.grid.server.args;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Test;
 
@@ -24,7 +26,7 @@ public class ArgsTest {
     Args.getInstance();
   }
 
-  @Test public void getInstance() {
+  @Test public void getInstance() throws IllegalStateException, IOException {
     Args args = Args.parse(new String[] { "one", "two", "--three", "--four=five" });
     assertSame(args, Args.getInstance());
     ArgumentStore store = args.getArgumentStore();

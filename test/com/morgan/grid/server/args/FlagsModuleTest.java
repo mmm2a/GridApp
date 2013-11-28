@@ -2,6 +2,8 @@ package com.morgan.grid.server.args;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +21,7 @@ public class FlagsModuleTest {
   private FlagsModule module;
   private Injector injector;
 
-  @Before public void createTestInstances() {
+  @Before public void createTestInstances() throws IllegalStateException, IOException {
     Args.parse(new String[] {});
     module = new FlagsModule(FlagAccessorForTest.class);
     injector = Guice.createInjector(module);
