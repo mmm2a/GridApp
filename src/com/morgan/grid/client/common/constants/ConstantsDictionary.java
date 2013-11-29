@@ -20,7 +20,12 @@ public class ConstantsDictionary {
 
   private final ImmutableMap<DictionaryConstant, String> constantMap;
 
-  @Inject @VisibleForTesting protected ConstantsDictionary() {
+  @VisibleForTesting protected ConstantsDictionary(
+      ImmutableMap<DictionaryConstant, String> constantMap) {
+    this.constantMap = constantMap;
+  }
+
+  @Inject ConstantsDictionary() {
     ImmutableMap.Builder<DictionaryConstant, String> mapBuilder = ImmutableMap.builder();
     Dictionary dictionary = getDictionary();
     for (String key : dictionary.keySet()) {

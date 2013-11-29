@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import com.morgan.grid.server.args.FlagsModule;
 import com.morgan.grid.server.auth.AuthModule;
 import com.morgan.grid.server.common.CommonModule;
+import com.morgan.grid.server.common.feature.FeatureModule;
 import com.morgan.grid.server.db.DatabaseModule;
 import com.morgan.grid.server.grid.GridModule;
 import com.morgan.grid.server.security.SecurityModule;
@@ -17,6 +18,7 @@ public final class GridServerModule extends AbstractModule {
 
   @Override protected void configure() {
     install(new FlagsModule(WebServerFlags.class));
+    install(new FeatureModule());
     install(new SecurityModule());
     install(new DatabaseModule());
     install(new CommonModule());

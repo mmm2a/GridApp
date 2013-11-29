@@ -10,6 +10,7 @@ import com.google.common.base.Strings;
  */
 public enum DictionaryConstant {
 
+  DISABLED_FEATURES("disabledFeatures"),
   AUTH_TEST_CONSTANT("authTestConstant"),
   GRID_TEST_CONSTANT("gridTestConstant");
 

@@ -7,6 +7,8 @@ import com.google.inject.Inject;
 import com.morgan.grid.client.common.AppPresenter;
 import com.morgan.grid.client.common.constants.ConstantsDictionary;
 import com.morgan.grid.shared.common.constants.DictionaryConstant;
+import com.morgan.grid.shared.common.feature.Feature;
+import com.morgan.grid.shared.common.feature.FeatureChecker;
 
 /**
  * {@link AppPresenter} for the Grid app.
@@ -15,15 +17,23 @@ import com.morgan.grid.shared.common.constants.DictionaryConstant;
  */
 class GridAppPresenter implements AppPresenter {
 
+  private final FeatureChecker featureChecker;
   private final ConstantsDictionary dictionary;
   private final GridServiceAsync gridService;
 
-  @Inject GridAppPresenter(ConstantsDictionary dictionary, GridServiceAsync gridService) {
+  @Inject GridAppPresenter(FeatureChecker featureChecker,
+      ConstantsDictionary dictionary, GridServiceAsync gridService) {
+    this.featureChecker = featureChecker;
     this.dictionary = dictionary;
     this.gridService = gridService;
   }
 
   @Override public void startApp() {
+    for (Feature feature : Feature.values()) {
+      RootPanel.get().add(new Label("Feature " + feature + ": "
+          + (featureChecker.isEnabled(feature) ? "enabled" : "disabled")));
+    }
+
     gridService.getHelloMessage(dictionary.get(DictionaryConstant.GRID_TEST_CONSTANT),
         new AsyncCallback<String>() {
           @Override public void onSuccess(String result) {

@@ -1,6 +1,7 @@
 package com.morgan.grid.client.common;
 
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.morgan.grid.client.common.feature.FeatureModule;
 
 /**
  * GIN module for the common package.
@@ -10,5 +11,6 @@ import com.google.gwt.inject.client.AbstractGinModule;
 public final class CommonGinModule extends AbstractGinModule {
 
   @Override protected void configure() {
+    install(new FeatureModule());
   }
 }
