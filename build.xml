@@ -64,6 +64,9 @@
       access="package">
       <fileset dir="src" includes="**/*.java"/>
       <link href="http://docs.oracle.com/javase/6/docs/api"/>
+      <link href="http://www.gwtproject.org/javadoc/latest/"/>
+      <link href="http://google-guice.googlecode.com/git/javadoc"/>
+      <link href="http://google-gin.googlecode.com/svn/trunk/javadoc"/>
     </javadoc>
   </target>
 
