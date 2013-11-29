@@ -8,6 +8,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @author mark@mark-morgan.net (Mark Morgan)
  */
 public interface GridServiceAsync {
-  /** @see GridService#getHelloMessage() */
+  /** @see GridService#getHelloMessage(String) */
   void getHelloMessage(String name, AsyncCallback<String> callback);
 }

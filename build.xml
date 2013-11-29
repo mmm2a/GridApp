@@ -58,6 +58,15 @@
     <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
   </path>
 
+  <target name="api" depends="libs" description="Javadoc for the project">
+    <mkdir dir="api"/>
+    <javadoc sourcepath="src" destdir="api" classpathref="project.class.path"
+      access="package">
+      <fileset dir="src" includes="**/*.java"/>
+      <link href="http://docs.oracle.com/javase/6/docs/api"/>
+    </javadoc>
+  </target>
+
   <target name="libs" description="Copy libs to WEB-INF/lib">
     <mkdir dir="war/WEB-INF/lib" />
     <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
@@ -187,7 +196,7 @@
 
   <target name="hosted" depends="devmode" description="Run development mode (NOTE: the 'hosted' target is deprecated)" />
 
-  <target name="build" depends="gwtc" description="Build this project" />
+  <target name="build" depends="gwtc,api" description="Build this project" />
 
   <target name="war" depends="build" description="Create a war file">
     <zip destfile="GridApp.war" basedir="war"/>
@@ -200,6 +209,7 @@
     <delete dir="war/authapp" failonerror="false" />
 
     <delete dir="test-bin" failonerror="false"/>
+    <delete dir="api" failonerror="false"/>
   </target>
 
 </project>

@@ -20,7 +20,7 @@ public final class DefaultFlagParsers {
   }
 
   /**
-   * Gets a {@link FlagParser} suitable for handling {@link Byte} and {@link byte} flag types.
+   * Gets a {@link FlagParser} suitable for handling {@link Byte} and byte flag types.
    */
   public static FlagParser byteFlagParser() {
     return new DefaultFlagParser(new DelegatingNullFunction<Byte>() {
@@ -31,7 +31,7 @@ public final class DefaultFlagParsers {
   }
 
   /**
-   * Gets a {@link FlagParser} suitable for handling {@link Character} and {@link char} flag types.
+   * Gets a {@link FlagParser} suitable for handling {@link Character} and char flag types.
    */
   public static FlagParser charFlagParser() {
     return new DefaultFlagParser(new DelegatingNullFunction<Character>() {
@@ -43,7 +43,7 @@ public final class DefaultFlagParsers {
   }
 
   /**
-   * Gets a {@link FlagParser} suitable for handling {@link Short} and {@link short} flag types.
+   * Gets a {@link FlagParser} suitable for handling {@link Short} and short flag types.
    */
   public static FlagParser shortFlagParser() {
     return new DefaultFlagParser(new DelegatingNullFunction<Short>() {
@@ -54,7 +54,7 @@ public final class DefaultFlagParsers {
   }
 
   /**
-   * Gets a {@link FlagParser} suitable for handling {@link Integer} and {@link int} flag types.
+   * Gets a {@link FlagParser} suitable for handling {@link Integer} and int flag types.
    */
   public static FlagParser intFlagParser() {
     return new DefaultFlagParser(new DelegatingNullFunction<Integer>() {
@@ -65,7 +65,7 @@ public final class DefaultFlagParsers {
   }
 
   /**
-   * Gets a {@link FlagParser} suitable for handling {@link Long} and {@link long} flag types.
+   * Gets a {@link FlagParser} suitable for handling {@link Long} and long flag types.
    */
   public static FlagParser longFlagParser() {
     return new DefaultFlagParser(new DelegatingNullFunction<Long>() {
@@ -76,7 +76,7 @@ public final class DefaultFlagParsers {
   }
 
   /**
-   * Gets a {@link FlagParser} suitable for handling {@link Float} and {@link float} flag types.
+   * Gets a {@link FlagParser} suitable for handling {@link Float} and float flag types.
    */
   public static FlagParser floatFlagParser() {
     return new DefaultFlagParser(new DelegatingNullFunction<Float>() {
@@ -87,7 +87,7 @@ public final class DefaultFlagParsers {
   }
 
   /**
-   * Gets a {@link FlagParser} suitable for handling {@link Double} and {@link double} flag types.
+   * Gets a {@link FlagParser} suitable for handling {@link Double} and double flag types.
    */
   public static FlagParser doubleFlagParser() {
     return new DefaultFlagParser(new DelegatingNullFunction<Double>() {
@@ -98,7 +98,7 @@ public final class DefaultFlagParsers {
   }
 
   /**
-   * Gets a {@link FlagParser} suitable for handling {@link Boolean} and {@link boolean} flag types.
+   * Gets a {@link FlagParser} suitable for handling {@link Boolean} and boolean flag types.
    */
   public static FlagParser booleanFlagParser() {
     return new DefaultFlagParser(new DelegatingNullFunction<Boolean>() {
@@ -109,7 +109,7 @@ public final class DefaultFlagParsers {
   }
 
   /**
-   * Gets a {@link FlagParser} suitable for handling {@link Void} and {@link void} flag types.
+   * Gets a {@link FlagParser} suitable for handling {@link Void} and void flag types.
    */
   public static FlagParser voidFlagParser() {
     return new DefaultFlagParser(new DelegatingNullFunction<Void>() {
