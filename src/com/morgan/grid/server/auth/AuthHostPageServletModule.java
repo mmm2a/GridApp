@@ -10,6 +10,6 @@ import com.morgan.grid.server.common.hostpage.HostPageServletModule;
 final class AuthHostPageServletModule extends HostPageServletModule {
 
   @Override protected void addApplications() {
-    addApplication("/auth", AuthHostPageServletModule.class, "resources/Auth.html");
+    addApplication("/apps/auth", AuthHostPageServletModule.class, "resources/Auth.html");
   }
 }

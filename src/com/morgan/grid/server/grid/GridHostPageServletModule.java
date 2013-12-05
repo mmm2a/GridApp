@@ -10,6 +10,6 @@ import com.morgan.grid.server.common.hostpage.HostPageServletModule;
 final class GridHostPageServletModule extends HostPageServletModule {
 
   @Override protected void addApplications() {
-    addApplication("/grid", GridHostPageServletModule.class, "resources/Grid.html");
+    addApplication("/apps/grid", GridHostPageServletModule.class, "resources/Grid.html");
   }
 }
